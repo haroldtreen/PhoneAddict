@@ -3,4 +3,5 @@
 .idea/uiDesigner.xml
 target
 *.iml
+gen
 .idea
