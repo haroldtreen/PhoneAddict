@@ -16,5 +16,7 @@
             </intent-filter>
         </activity>
 
+        <service android:name=".service.WakeService"/>
+        <receiver android:name=".EventReceiver" />
     </application>
 </manifest>

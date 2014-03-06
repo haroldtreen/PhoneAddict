@@ -30,11 +30,11 @@ public class WakeEvent {
         return notificationCount;
     }
 
-    public void end(){
-        eventDuration = Calendar.getInstance().getTimeInMillis() - eventCalendar.getTimeInMillis();
-    }
-
     public long getEventDuration(){
         return eventDuration;
+    }
+
+    public void end(){
+        eventDuration = Calendar.getInstance().getTimeInMillis() - eventCalendar.getTimeInMillis();
     }
 }

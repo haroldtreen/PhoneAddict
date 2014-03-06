@@ -50,7 +50,7 @@ public class WakeTrackerTest {
             totalDuration += event.getEventDuration();
         }
 
-        long duration = tracker.getAverageDuration();
+        long duration = tracker.getAverageDurationMs();
         assertTrue(duration == Math.round(totalDuration/numEvents));
     }
 }
