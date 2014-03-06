@@ -5,4 +5,38 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/title_avarage_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20dp"
+        android:text="Average Duration"
+        />
+
+    <TextView
+        android:id="@+id/avarage_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="14dp"
+        />
+
+    <TextView
+        android:id="@+id/title_last_sleep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="20dp"
+        android:text="Last Phone Sleep"
+        />
+
+    <TextView
+        android:id="@+id/last_sleep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="14dp"
+        />
+
 </LinearLayout>
