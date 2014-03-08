@@ -17,6 +17,6 @@
         </activity>
 
         <service android:name=".service.WakeService"/>
-        <receiver android:name=".EventReceiver" />
+        <receiver android:name=".receiver.ScreenEventReceiver" />
     </application>
 </manifest>

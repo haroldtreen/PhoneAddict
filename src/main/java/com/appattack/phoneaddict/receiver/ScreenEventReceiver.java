@@ -1,4 +1,4 @@
-package com.appattack.phoneaddict;
+package com.appattack.phoneaddict.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,12 +10,12 @@ import com.appattack.phoneaddict.tracker.WakeEvent;
 import com.appattack.phoneaddict.tracker.WakeTracker;
 
 
-public class EventReceiver extends BroadcastReceiver {
+public class ScreenEventReceiver extends BroadcastReceiver {
 
     WakeTracker tracker;
     WakeEvent currentEvent;
 
-    public EventReceiver(WakeTracker tracker){
+    public ScreenEventReceiver(WakeTracker tracker){
         super();
         this.tracker = tracker;
     }
