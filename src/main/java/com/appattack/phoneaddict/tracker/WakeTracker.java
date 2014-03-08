@@ -1,16 +1,12 @@
 package com.appattack.phoneaddict.tracker;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
-/**
- * Created by haroldtreen on 2014-03-03.
- */
 public class WakeTracker {
 
-    ArrayList<WakeEvent> wakeEvents = new ArrayList<WakeEvent>();
+    List<WakeEvent> wakeEvents = new ArrayList<WakeEvent>();
 
     public WakeTracker(){
 
@@ -18,8 +14,6 @@ public class WakeTracker {
 
     public void addEvent(WakeEvent event){
         wakeEvents.add(event);
-        Log.v("PhoneAddict", "Event Added!");
-        Log.v("PhoneAddict", "Num Events: " + wakeEvents.size());
     }
 
     public WakeEvent[] getEvents(){
@@ -53,7 +47,7 @@ public class WakeTracker {
         }
     }
 
-    public Calendar getLastSleepCalendar(){
+    public Calendar getLastEventCalendar(){
         WakeEvent event = getLastWakeEvent();
 
         if(event == null){
@@ -63,7 +57,7 @@ public class WakeTracker {
         }
     }
 
-    public long getLastSleepDuration(){
+    public long getLastEventDuration(){
         WakeEvent event = getLastWakeEvent();
 
         if(event == null){

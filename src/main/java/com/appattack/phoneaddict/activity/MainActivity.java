@@ -12,9 +12,11 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.appattack.phoneaddict.R;
+import com.appattack.phoneaddict.service.ServiceUtilities;
 import com.appattack.phoneaddict.service.WakeService;
 import com.appattack.phoneaddict.service.WakeService.*;
 import com.appattack.phoneaddict.tracker.WakeTracker;
+import com.google.inject.Inject;
 
 import java.util.Calendar;
 
@@ -25,17 +27,17 @@ import roboguice.inject.InjectView;
 @ContentView(R.layout.main_activity)
 public class MainActivity extends RoboActivity implements View.OnClickListener {
 
+    /*--------------------------
+        PARAMETERS
+    --------------------------*/
+
+    @InjectView(R.id.start_service_btn) ToggleButton serviceToggleBtn;
+    @InjectView(R.id.last_sleep_txt) TextView lastSleepTxt;
+    @InjectView(R.id.avarage_duration_txt) TextView averageDurationTxt;
+
+    @Inject ServiceUtilities serviceUtilities;
+
     boolean boundToService = false;
-
-    @InjectView(R.id.start_service_btn)
-    ToggleButton serviceToggleBtn;
-
-    @InjectView(R.id.last_sleep_txt)
-    TextView lastSleepTxt;
-
-    @InjectView(R.id.avarage_duration_txt)
-    TextView averageDurationTxt;
-
     WakeService wakeService;
 
     ServiceConnection mConnection = new ServiceConnection(){
@@ -58,6 +60,10 @@ public class MainActivity extends RoboActivity implements View.OnClickListener {
         }
     };
 
+    /*--------------------------
+        LIFECYCLE METHODS
+    --------------------------*/
+
     public static void start(Context context){
         Intent startIntent = new Intent(context, MainActivity.class);
         context.startActivity(startIntent);
@@ -71,7 +77,7 @@ public class MainActivity extends RoboActivity implements View.OnClickListener {
 
     protected void onStart(){
         super.onStart();
-        boolean isOn = isServiceRunning(WakeService.class);
+        boolean isOn = serviceUtilities.isServiceRunning(WakeService.class);
         serviceToggleBtn.setChecked(isOn);
 
         if(isOn && !boundToService){
@@ -82,20 +88,14 @@ public class MainActivity extends RoboActivity implements View.OnClickListener {
         }
     }
 
-    private boolean isServiceRunning(Class serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
-    }
+    /*--------------------------
+        VIEW MANIPULATION
+    --------------------------*/
 
     private void updateWakeStats() {
         WakeTracker tracker = wakeService.getTracker();
 
-        Calendar lastEvent = tracker.getLastSleepCalendar();
+        Calendar lastEvent = tracker.getLastEventCalendar();
         long averageSleepDurationS = tracker.getAverageDurationMs()/1000;
 
         if(lastEvent != null){
@@ -103,6 +103,10 @@ public class MainActivity extends RoboActivity implements View.OnClickListener {
             averageDurationTxt.setText(Long.toString(averageSleepDurationS));
         }
     }
+
+    /*--------------------------
+        CLICK HANDLERS
+    --------------------------*/
 
     @Override
     public void onClick(View view) {
