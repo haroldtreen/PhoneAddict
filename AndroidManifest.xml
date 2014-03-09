@@ -4,10 +4,14 @@
           android:versionName="1.0.0-SNAPSHOT"
           package="com.appattack.phoneaddict">
 
-    <uses-sdk android:minSdkVersion="11"
+    <uses-sdk android:minSdkVersion="13"
               android:targetSdkVersion="18"/>
 
-    <application android:name=".PhoneAddictApplication">
+    <application
+        android:label="@string/app_title"
+        android:name=".PhoneAddictApplication"
+        android:theme="@android:style/Theme.Holo.Light"
+        android:icon="@drawable/ic_launcher">
 
         <activity android:name=".activity.MainActivity" android:screenOrientation="portrait">
             <intent-filter>
