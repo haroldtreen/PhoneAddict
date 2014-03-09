@@ -32,8 +32,6 @@ public class MainActivity extends RoboActivity implements View.OnClickListener {
     --------------------------*/
 
     @InjectView(R.id.start_service_btn) ToggleButton serviceToggleBtn;
-    @InjectView(R.id.last_sleep_txt) TextView lastSleepTxt;
-    @InjectView(R.id.avarage_duration_txt) TextView averageDurationTxt;
 
     @Inject ServiceUtilities serviceUtilities;
 
@@ -99,8 +97,6 @@ public class MainActivity extends RoboActivity implements View.OnClickListener {
         long averageSleepDurationS = tracker.getAverageDurationMs()/1000;
 
         if(lastEvent != null){
-            lastSleepTxt.setText(lastEvent.getTime().toString());
-            averageDurationTxt.setText(Long.toString(averageSleepDurationS));
         }
     }
 

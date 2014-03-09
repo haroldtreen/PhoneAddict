@@ -1,50 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/title_avarage_duration_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textSize="20dp"
-        android:text="Average Sleep Duration"
-        />
+    <ScrollView
+        android:id="@+id/live_stats_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        >
 
-    <TextView
-        android:id="@+id/avarage_duration_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textSize="14dp"
-        />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
 
-    <TextView
-        android:id="@+id/title_last_sleep_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textSize="20dp"
-        android:text="Last Phone Sleep"
-        />
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="Today"
+                android:textSize="30sp"
+                android:focusable="false"
+                android:enabled="false"
+             />
 
-    <TextView
-        android:id="@+id/last_sleep_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textSize="14dp"
-        />
+            <include
+                android:id="@+id/main_wakes"
+                layout="@layout/main_stat_group"
+                android:layout_width="wrap_content"
+                />
+
+            <include
+                android:id="@+id/main_notifications"
+                layout="@layout/main_stat_group"
+                android:layout_width="wrap_content"
+                />
+
+            <include
+                android:id="@+id/main_other"
+                layout="@layout/main_stat_group"
+                android:layout_width="wrap_content"
+                />
+
+            <include
+                android:id="@+id/main_other"
+                layout="@layout/main_stat_group"
+                android:layout_width="wrap_content"
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <ToggleButton
         android:id="@+id/start_service_btn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:text="Start Wake Service"
-        android:layout_marginTop="50dp"
+        android:layout_marginBottom="5dp"
         />
 
 </LinearLayout>

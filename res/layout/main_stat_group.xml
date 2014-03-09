@@ -1,22 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/main_stat_title"
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Today"
-        android:style="@android:style/TextAppearance.Holo.Large" />
+        android:paddingLeft="5dp">
 
-    <TextView
-        android:id="@+id/main_stat_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Today"
-        android:style="@android:style/TextAppearance.Holo.Large" />
+        <TextView
+            android:id="@+id/main_group_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:textSize="25sp"
+            android:text="Wakes"
+            />
 
-</RelativeLayout>
+        <include
+            android:id="@+id/wakes_count_stat"
+            layout="@layout/main_stat"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            />
+
+        <include
+            android:id="@+id/notifications_count_stat"
+            layout="@layout/main_stat"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            />
+    </LinearLayout>
+</merge>
