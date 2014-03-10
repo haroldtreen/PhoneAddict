@@ -44,15 +44,22 @@ public class WakeTracker {
 
     public long getAverageDurationMs(){
         if(wakeEvents.size() > 0){
-            long totalDuration = 0;
-            for(WakeEvent event : wakeEvents){
-                totalDuration += event.getEventDuration();
-            }
-
-            return Math.round(totalDuration/wakeEvents.size());
+            return Math.round(getTotalScreenOnTimeMs()/wakeEvents.size());
         } else {
             return 0;
         }
+    }
+
+    public long getTotalScreenOnTimeMs(){
+        long totalDuration = 0;
+
+        if(wakeEvents.size() > 0){
+            for(WakeEvent event : wakeEvents){
+                totalDuration += event.getEventDuration();
+            }
+        }
+
+        return totalDuration;
     }
 
     public Calendar getLastEventCalendar(){
