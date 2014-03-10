@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="group_title_default">30sp</dimen>
+    <dimen name="title_default">25sp</dimen>
+    <dimen name="metric_title_default">15sp</dimen>
+    <dimen name="metric_value_default">20sp</dimen>
+</resources>

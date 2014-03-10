@@ -32,6 +32,14 @@ public class WakeTrackerTest {
     }
 
     @Test
+    public void shouldGetTheNumberOfEvents(){
+        WakeTracker tracker = new WakeTracker();
+        int numEvents = fillTrackerWithEvents(tracker);
+
+        assertEquals(numEvents, tracker.getNumEvents());
+    }
+
+    @Test
     public void emptyTrackerShouldReturnEmptyValues(){
         WakeTracker tracker = new WakeTracker();
         WakeEvent[] emptyArray = new WakeEvent[0];
@@ -99,7 +107,7 @@ public class WakeTrackerTest {
         HELPERS
     --------------------------*/
 
-    private void fillTrackerWithEvents(WakeTracker tracker){
+    private int fillTrackerWithEvents(WakeTracker tracker){
         WakeEvent event;
         int numEvents = 1 + (int)(Math.random() * 50);
 
@@ -108,6 +116,8 @@ public class WakeTrackerTest {
             event.eventDuration = i;
             tracker.addEvent(event);
         }
+
+        return numEvents;
     }
 
     private WakeEvent getTrackerLastEvent(WakeTracker tracker){

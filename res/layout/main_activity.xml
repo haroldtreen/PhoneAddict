@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res/com.appattack.phoneaddict"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -21,36 +23,18 @@
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:text="Today"
-                android:textSize="30sp"
-                android:focusable="false"
-                android:enabled="false"
+                android:text="Todays Stats"
+                android:textSize="@dimen/group_title_default"
              />
 
-            <include
-                android:id="@+id/main_wakes"
-                layout="@layout/main_stat_group"
-                android:layout_width="wrap_content"
+            <com.appattack.phoneaddict.view.StatGroupView
+                android:id="@+id/main_wake_stats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                custom:title="Wakes"
+                custom:titleSize="@dimen/title_default"
                 />
-
-            <include
-                android:id="@+id/main_notifications"
-                layout="@layout/main_stat_group"
-                android:layout_width="wrap_content"
-                />
-
-            <include
-                android:id="@+id/main_other"
-                layout="@layout/main_stat_group"
-                android:layout_width="wrap_content"
-                />
-
-            <include
-                android:id="@+id/main_other"
-                layout="@layout/main_stat_group"
-                android:layout_width="wrap_content"
-                />
-
         </LinearLayout>
 
     </ScrollView>

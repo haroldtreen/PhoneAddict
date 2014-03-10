@@ -7,18 +7,26 @@ import java.util.List;
 public class WakeTracker {
 
     List<WakeEvent> wakeEvents = new ArrayList<WakeEvent>();
+    private int briefEvents=0;
 
     public WakeTracker(){
 
     }
 
     public void addEvent(WakeEvent event){
+        if(event.eventDuration/1000 < 5){
+            briefEvents++;
+        }
         wakeEvents.add(event);
     }
 
     public WakeEvent[] getEvents(){
         WakeEvent[] eventsArray = new WakeEvent[wakeEvents.size()];
         return wakeEvents.toArray(eventsArray);
+    }
+
+    public int getNumEvents(){
+        return wakeEvents.size();
     }
 
     public int getAverageNotificationCount(){
@@ -65,6 +73,10 @@ public class WakeTracker {
         } else {
             return event.getEventDuration();
         }
+    }
+
+    public int getBriefEventsCount(){
+        return briefEvents;
     }
 
     private WakeEvent getLastWakeEvent(){

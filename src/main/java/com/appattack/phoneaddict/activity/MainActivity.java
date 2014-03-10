@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -16,6 +17,7 @@ import com.appattack.phoneaddict.service.ServiceUtilities;
 import com.appattack.phoneaddict.service.WakeService;
 import com.appattack.phoneaddict.service.WakeService.*;
 import com.appattack.phoneaddict.tracker.WakeTracker;
+import com.appattack.phoneaddict.view.StatGroupView;
 import com.google.inject.Inject;
 
 import java.util.Calendar;
@@ -31,9 +33,14 @@ public class MainActivity extends RoboActivity implements View.OnClickListener {
         PARAMETERS
     --------------------------*/
 
+    @InjectView(R.id.main_wake_stats) StatGroupView wakeStats;
     @InjectView(R.id.start_service_btn) ToggleButton serviceToggleBtn;
 
     @Inject ServiceUtilities serviceUtilities;
+
+    final String TOTAL_WAKES = "Total Wakes";
+    final String TOTAL_BRIEF_EVENTS = "Total Brief Events (< 5s)";
+    final String AVERAGE_WAKE_LENGTH = "Average Wake Length";
 
     boolean boundToService = false;
     WakeService wakeService;
@@ -71,6 +78,10 @@ public class MainActivity extends RoboActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         serviceToggleBtn.setOnClickListener(this);
+
+        wakeStats.addStat(TOTAL_WAKES, "<No Data>");
+        wakeStats.addStat(AVERAGE_WAKE_LENGTH, "<No Data>");
+        wakeStats.addStat(TOTAL_BRIEF_EVENTS, "<No Data>");
     }
 
     protected void onStart(){
@@ -93,11 +104,9 @@ public class MainActivity extends RoboActivity implements View.OnClickListener {
     private void updateWakeStats() {
         WakeTracker tracker = wakeService.getTracker();
 
-        Calendar lastEvent = tracker.getLastEventCalendar();
-        long averageSleepDurationS = tracker.getAverageDurationMs()/1000;
-
-        if(lastEvent != null){
-        }
+        wakeStats.updateStat(TOTAL_WAKES, Integer.toString(tracker.getNumEvents()));
+        wakeStats.updateStat(AVERAGE_WAKE_LENGTH, Float.toString(tracker.getAverageDurationMs() / 1000) + "s");
+        wakeStats.updateStat(TOTAL_BRIEF_EVENTS, Integer.toString(tracker.getBriefEventsCount()));
     }
 
     /*--------------------------
