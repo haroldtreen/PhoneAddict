@@ -1,24 +1,15 @@
-package com.appattack.phoneaddict.activity;
+package com.appattack.phoneaddict.activities;
 
-import android.app.Activity;
-import android.app.Application;
-import android.app.Service;
 import android.content.Intent;
 
 import com.appattack.phoneaddict.RobolectricTestRunnerWithInjection;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.shadows.ShadowActivity;
-import org.robolectric.shadows.ShadowApplication;
-import org.robolectric.shadows.ShadowService;
 import org.robolectric.util.ActivityController;
-
-import sun.applet.Main;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;

@@ -48,7 +48,7 @@ public class WakeTrackerTest {
         assertEquals(0, tracker.getAverageNotificationCount());
         assertNull(tracker.getLastEventCalendar());
         assertEquals(0, tracker.getAverageDurationMs());
-        assertEquals(0, tracker.getLastEventDuration());
+        assertEquals(0, tracker.getLastEventDurationMs());
     }
 
     @Test
@@ -100,7 +100,7 @@ public class WakeTrackerTest {
         fillTrackerWithEvents(tracker);
         long lastDuration = getTrackerLastEvent(tracker).getEventDuration();
 
-        assertEquals(lastDuration, tracker.getLastEventDuration());
+        assertEquals(lastDuration, tracker.getLastEventDurationMs());
     }
 
     /*--------------------------

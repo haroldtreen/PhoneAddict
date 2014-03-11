@@ -1,9 +1,9 @@
-package com.appattack.phoneaddict.service;
+package com.appattack.phoneaddict.services;
 
 import android.content.Intent;
 
 import com.appattack.phoneaddict.RobolectricTestRunnerWithInjection;
-import com.appattack.phoneaddict.receiver.ScreenEventReceiver;
+import com.appattack.phoneaddict.receivers.ScreenEventReceiver;
 import com.google.inject.Inject;
 
 import org.junit.Before;

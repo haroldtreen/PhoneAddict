@@ -1,39 +1,37 @@
-package com.appattack.phoneaddict.view;
+package com.appattack.phoneaddict.views;
 
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.Pair;
 import android.util.TypedValue;
 import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.view.ViewGroup.*;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.appattack.phoneaddict.R;
-import com.google.inject.Inject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
-import javax.sound.sampled.Line;
 
 public class StatGroupView extends LinearLayout {
+
+    /*--------------------------
+        PARAMETERS
+    --------------------------*/
 
     Context context;
 
     HashMap metricsMap;
-    List<Pair> statValues = new ArrayList<Pair>();
 
     final String TITLE_TAG = "metric_title";
     final String VALUE_TAG = "metric_value";
 
     int metricTitleSize;
     int metricValueSize;
+
+    /*--------------------------
+        VIEW SETUP
+    --------------------------*/
 
     public StatGroupView(Context context, AttributeSet attrs){
         super(context, attrs);
@@ -49,8 +47,9 @@ public class StatGroupView extends LinearLayout {
         int groupTitleSize = a.getDimensionPixelSize(R.styleable.StatGroupView_titleSize, defaultTitleSize);
 
         setMetricTextSizes(a);
-
         addTitle(groupTitleText, groupTitleSize);
+
+        a.recycle();
     }
 
     public void setMetricTextSizes(TypedArray a){
@@ -63,6 +62,10 @@ public class StatGroupView extends LinearLayout {
         this.metricValueSize = a.getDimensionPixelSize(R.styleable.StatGroupView_metricValueSize, valueSize);
     }
 
+    /*--------------------------
+        VIEW MANIPULATION
+    --------------------------*/
+
     public void addTitle(String title, int size){
         TextView titleView = new TextView(context);
 
@@ -70,18 +73,6 @@ public class StatGroupView extends LinearLayout {
         titleView.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
 
         addView(titleView);
-    }
-
-    public boolean updateStat(String title, String value){
-        if(metricsMap.containsKey(title)){
-            LinearLayout stat = (LinearLayout) metricsMap.get(title);
-            TextView metricValue = (TextView) stat.findViewWithTag(VALUE_TAG);
-
-            metricValue.setText(value);
-            return true;
-        }else{
-            return false;
-        }
     }
 
     public void addStat(String metric, String value){
@@ -124,18 +115,20 @@ public class StatGroupView extends LinearLayout {
         layout.addView(titleView);
     }
 
+    public boolean updateStat(String title, String value){
+        if(metricsMap.containsKey(title)){
+            LinearLayout stat = (LinearLayout) metricsMap.get(title);
+            TextView metricValue = (TextView) stat.findViewWithTag(VALUE_TAG);
+
+            metricValue.setText(value);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     private void refresh(){
         invalidate();
         requestLayout();
-    }
-
-    private void createStatTitleView(String title){
-        TextView startTitle = new TextView(context);
-        LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-
-        startTitle.setText(title);
-        startTitle.setLayoutParams(layoutParams);
-        startTitle.setGravity(Gravity.BOTTOM);
-        startTitle.setGravity(Gravity.LEFT);
     }
 }

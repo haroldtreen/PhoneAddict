@@ -27,7 +27,7 @@
                 android:textSize="@dimen/group_title_default"
              />
 
-            <com.appattack.phoneaddict.view.StatGroupView
+            <com.appattack.phoneaddict.views.StatGroupView
                 android:id="@+id/main_wake_stats"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

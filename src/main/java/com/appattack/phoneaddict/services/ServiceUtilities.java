@@ -1,4 +1,4 @@
-package com.appattack.phoneaddict.service;
+package com.appattack.phoneaddict.services;
 
 import android.app.ActivityManager;
 import android.content.Context;

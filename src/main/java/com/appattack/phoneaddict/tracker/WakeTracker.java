@@ -1,17 +1,24 @@
 package com.appattack.phoneaddict.tracker;
 
+import com.google.inject.Singleton;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+@Singleton
 public class WakeTracker {
+
+    /*--------------------------
+        PARAMETERS
+    --------------------------*/
 
     List<WakeEvent> wakeEvents = new ArrayList<WakeEvent>();
     private int briefEvents=0;
 
-    public WakeTracker(){
-
-    }
+    /*--------------------------
+        TRACKER MODIFIERS
+    --------------------------*/
 
     public void addEvent(WakeEvent event){
         if(event.eventDuration/1000 < 5){
@@ -19,6 +26,10 @@ public class WakeTracker {
         }
         wakeEvents.add(event);
     }
+
+    /*--------------------------
+        EVENT ACCESSORS
+    --------------------------*/
 
     public WakeEvent[] getEvents(){
         WakeEvent[] eventsArray = new WakeEvent[wakeEvents.size()];
@@ -28,6 +39,14 @@ public class WakeTracker {
     public int getNumEvents(){
         return wakeEvents.size();
     }
+
+    public int getBriefEventsCount(){
+        return briefEvents;
+    }
+
+    /*--------------------------
+        NOTIFICATION ACCESSORS
+    --------------------------*/
 
     public int getAverageNotificationCount(){
         if(wakeEvents.size() > 0){
@@ -41,6 +60,10 @@ public class WakeTracker {
             return 0;
         }
     }
+
+    /*--------------------------
+        TIME ACCESSORS
+    --------------------------*/
 
     public long getAverageDurationMs(){
         if(wakeEvents.size() > 0){
@@ -62,6 +85,16 @@ public class WakeTracker {
         return totalDuration;
     }
 
+    public long getLastEventDurationMs(){
+        WakeEvent event = getLastWakeEvent();
+
+        if(event == null){
+            return 0;
+        } else {
+            return event.getEventDuration();
+        }
+    }
+
     public Calendar getLastEventCalendar(){
         WakeEvent event = getLastWakeEvent();
 
@@ -72,19 +105,9 @@ public class WakeTracker {
         }
     }
 
-    public long getLastEventDuration(){
-        WakeEvent event = getLastWakeEvent();
-
-        if(event == null){
-            return 0;
-        } else {
-            return event.getEventDuration();
-        }
-    }
-
-    public int getBriefEventsCount(){
-        return briefEvents;
-    }
+    /*--------------------------
+        PRIVATE METHODS
+    --------------------------*/
 
     private WakeEvent getLastWakeEvent(){
         int size = wakeEvents.size();

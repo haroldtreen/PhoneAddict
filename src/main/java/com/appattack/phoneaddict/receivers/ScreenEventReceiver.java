@@ -1,6 +1,5 @@
-package com.appattack.phoneaddict.receiver;
+package com.appattack.phoneaddict.receivers;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -8,17 +7,25 @@ import android.util.Log;
 
 import com.appattack.phoneaddict.tracker.WakeEvent;
 import com.appattack.phoneaddict.tracker.WakeTracker;
+import com.google.inject.Inject;
 
+import roboguice.inject.ContextSingleton;
+import roboguice.receiver.RoboBroadcastReceiver;
 
-public class ScreenEventReceiver extends BroadcastReceiver {
+@ContextSingleton
+public class ScreenEventReceiver extends RoboBroadcastReceiver {
 
-    WakeTracker tracker;
+    /*--------------------------
+       PARAMETERS
+    --------------------------*/
+
+    @Inject WakeTracker tracker;
+
     WakeEvent currentEvent;
 
-    public ScreenEventReceiver(WakeTracker tracker){
-        super();
-        this.tracker = tracker;
-    }
+    /*--------------------------
+        RECEIVER CONSTRUCTOR
+    --------------------------*/
 
     public static IntentFilter getIntentFilter() {
         IntentFilter filter = new IntentFilter();
@@ -33,7 +40,12 @@ public class ScreenEventReceiver extends BroadcastReceiver {
         return filter;
     }
 
-    public void onReceive(Context context, Intent intent) {
+    /*--------------------------
+        LIFECYCLE METHODS
+    --------------------------*/
+
+    @Override
+    public void handleReceive(Context context, Intent intent) {
         String action = intent.getAction();
 
         Log.v("PhoneAddict", "Intent Received: " + intent.getAction());

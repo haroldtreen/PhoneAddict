@@ -2,15 +2,20 @@ package com.appattack.phoneaddict.tracker;
 
 import java.util.Calendar;
 
-/**
- * Created by haroldtreen on 2014-03-03.
- */
 public class WakeEvent {
+
+    /*--------------------------
+        PARAMETERS
+    --------------------------*/
 
     Calendar eventCalendar;
     long eventDuration;
 
     int notificationCount;
+
+    /*--------------------------
+        CONSTRUCTORS
+    --------------------------*/
 
     public  WakeEvent(){
         eventCalendar = Calendar.getInstance();
@@ -22,19 +27,27 @@ public class WakeEvent {
         notificationCount = notifications;
     }
 
-    public Calendar getEventCalendar() {
-        return (Calendar) eventCalendar.clone();
+    /*--------------------------
+        LIFECYCLE METHODS
+    --------------------------*/
+
+    public void end(){
+        eventDuration = Calendar.getInstance().getTimeInMillis() - eventCalendar.getTimeInMillis();
     }
 
-    public int getNotificationCount(){
-        return notificationCount;
+    /*--------------------------
+        ACCESSOR METHODS
+    --------------------------*/
+
+    public Calendar getEventCalendar() {
+        return (Calendar) eventCalendar.clone();
     }
 
     public long getEventDuration(){
         return eventDuration;
     }
 
-    public void end(){
-        eventDuration = Calendar.getInstance().getTimeInMillis() - eventCalendar.getTimeInMillis();
+    public int getNotificationCount(){
+        return notificationCount;
     }
 }

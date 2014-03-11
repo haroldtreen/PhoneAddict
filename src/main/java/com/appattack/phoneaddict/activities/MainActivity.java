@@ -1,26 +1,22 @@
-package com.appattack.phoneaddict.activity;
+package com.appattack.phoneaddict.activities;
 
-import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.Log;
 import android.view.View;
 import android.widget.ToggleButton;
 
 import com.appattack.phoneaddict.R;
-import com.appattack.phoneaddict.service.ServiceUtilities;
-import com.appattack.phoneaddict.service.WakeService;
-import com.appattack.phoneaddict.service.WakeService.*;
+import com.appattack.phoneaddict.services.ServiceUtilities;
+import com.appattack.phoneaddict.services.WakeService;
+import com.appattack.phoneaddict.services.WakeService.*;
 import com.appattack.phoneaddict.tracker.WakeTracker;
-import com.appattack.phoneaddict.view.StatGroupView;
+import com.appattack.phoneaddict.views.StatGroupView;
 import com.google.inject.Inject;
 
-import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
