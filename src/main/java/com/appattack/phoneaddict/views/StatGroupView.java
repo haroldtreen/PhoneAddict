@@ -33,6 +33,13 @@ public class StatGroupView extends LinearLayout {
         VIEW SETUP
     --------------------------*/
 
+    public StatGroupView(Context context){
+        super(context);
+        this.context = context;
+
+        metricsMap = new HashMap();
+    }
+
     public StatGroupView(Context context, AttributeSet attrs){
         super(context, attrs);
         this.context = context;
