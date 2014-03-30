@@ -1,6 +1,10 @@
 package com.appattack.phoneaddict.tracker;
 
+import com.appattack.phoneaddict.RobolectricTestRunnerWithInjection;
+
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.Calendar;
 
@@ -11,13 +15,19 @@ import static org.junit.Assert.assertTrue;
 
 public class WakeTrackerTest {
 
+    WakeTracker tracker;
+
+    @Before
+    public void setup(){
+        tracker = new WakeTracker();
+    }
+
     /*--------------------------
         TESTS
     --------------------------*/
 
     @Test
     public void shouldAddWakeEvents(){
-        WakeTracker tracker = new WakeTracker();
         WakeEvent eventOne = new WakeEvent(10);
         WakeEvent eventTwo = new WakeEvent(12);
 
@@ -32,8 +42,20 @@ public class WakeTrackerTest {
     }
 
     @Test
+    public void shouldTrackTheCurrentEvent(){
+        WakeEvent eventOne = new WakeEvent(10);
+        WakeEvent eventTwo = new WakeEvent(12);
+
+        tracker.addEvent(eventOne);
+        tracker.addEvent(eventTwo);
+
+        WakeEvent currentEvent = tracker.getCurrentEvent();
+
+        assertEquals(currentEvent.getNotificationCount(), eventTwo.getNotificationCount());
+    }
+
+    @Test
     public void shouldGetTheNumberOfEvents(){
-        WakeTracker tracker = new WakeTracker();
         int numEvents = fillTrackerWithEvents(tracker);
 
         assertEquals(numEvents, tracker.getNumEvents());
@@ -41,7 +63,6 @@ public class WakeTrackerTest {
 
     @Test
     public void emptyTrackerShouldReturnEmptyValues(){
-        WakeTracker tracker = new WakeTracker();
         WakeEvent[] emptyArray = new WakeEvent[0];
 
         assertArrayEquals(emptyArray, tracker.getEvents());
@@ -52,8 +73,21 @@ public class WakeTrackerTest {
     }
 
     @Test
+    public void shouldGetTheTotalNumberOfNotifications(){
+        int totalNotifications = 0;
+
+        fillTrackerWithEvents(tracker);
+        WakeEvent[] wakeEvents = tracker.getEvents();
+
+        for(WakeEvent event: wakeEvents){
+            totalNotifications += event.getNotificationCount();
+        }
+
+        assertEquals(totalNotifications, tracker.getTotalNotificationCount());
+    }
+
+    @Test
     public void shouldCalculateAverageNumberOfNotifications(){
-        WakeTracker tracker = new WakeTracker();
         int totalNotifications = 0;
 
         fillTrackerWithEvents(tracker);
@@ -69,7 +103,6 @@ public class WakeTrackerTest {
 
     @Test
     public void shouldCalculateAverageDuration(){
-        WakeTracker tracker = new WakeTracker();
         long totalDuration = 0;
 
         fillTrackerWithEvents(tracker);
@@ -85,8 +118,6 @@ public class WakeTrackerTest {
 
     @Test
     public void shouldGetLastSleepCalendar(){
-        WakeTracker tracker = new WakeTracker();
-
         fillTrackerWithEvents(tracker);
         Calendar eventCalendar = getTrackerLastEvent(tracker).getEventCalendar();
 
@@ -95,8 +126,6 @@ public class WakeTrackerTest {
 
     @Test
     public void shouldGetLastSleepDuration(){
-        WakeTracker tracker = new WakeTracker();
-
         fillTrackerWithEvents(tracker);
         long lastDuration = getTrackerLastEvent(tracker).getEventDuration();
 

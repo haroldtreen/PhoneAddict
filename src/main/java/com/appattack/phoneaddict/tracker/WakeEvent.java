@@ -31,6 +31,10 @@ public class WakeEvent {
         LIFECYCLE METHODS
     --------------------------*/
 
+    public void addNotification(){
+        notificationCount++;
+    }
+
     public void end(){
         eventDuration = Calendar.getInstance().getTimeInMillis() - eventCalendar.getTimeInMillis();
     }

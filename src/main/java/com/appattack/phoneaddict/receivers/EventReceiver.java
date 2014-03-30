@@ -13,11 +13,14 @@ import roboguice.inject.ContextSingleton;
 import roboguice.receiver.RoboBroadcastReceiver;
 
 @ContextSingleton
-public class ScreenEventReceiver extends RoboBroadcastReceiver {
+public class EventReceiver extends RoboBroadcastReceiver {
 
     /*--------------------------
        PARAMETERS
     --------------------------*/
+
+    public static final String actionNotificationPosted = "com.appattack.phoneaddict.actions.NOTIFICATION_POSTED";
+    public static final String actionNotificationRemoved = "com.appattack.phoneaddict.actions.NOTIFICATION_POSTED";
 
     @Inject WakeTracker tracker;
 
@@ -31,7 +34,9 @@ public class ScreenEventReceiver extends RoboBroadcastReceiver {
         IntentFilter filter = new IntentFilter();
         String[] actionsArray = {
                 Intent.ACTION_SCREEN_ON,
-                Intent.ACTION_SCREEN_OFF
+                Intent.ACTION_SCREEN_OFF,
+                actionNotificationPosted,
+                actionNotificationRemoved
         };
 
         for(String action : actionsArray){
@@ -51,14 +56,35 @@ public class ScreenEventReceiver extends RoboBroadcastReceiver {
         Log.v("PhoneAddict", "Intent Received: " + intent.getAction());
 
         if(action.equals(Intent.ACTION_SCREEN_ON)){
-            currentEvent = new WakeEvent();
+            createNewEvent();
+        } else if(action.equals(Intent.ACTION_SCREEN_OFF)){
+            endCurrentEvent();
+        } else if(action.equals(actionNotificationRemoved)){
+            incrementNotification();
+        } else if(action.equals(actionNotificationPosted)){
+            //TODO: Functionality for notification posted?
         }
-        else if(action.equals(Intent.ACTION_SCREEN_OFF)){
-            if(currentEvent != null){
-                currentEvent.end();
-                tracker.addEvent(currentEvent);
-                currentEvent = null;
-            }
+    }
+
+    /*--------------------------
+        EVENT ACTIONS
+    --------------------------*/
+
+    public void createNewEvent(){
+        currentEvent = new WakeEvent();
+        tracker.addEvent(currentEvent);
+    }
+
+    public void endCurrentEvent(){
+        if(currentEvent != null){
+            currentEvent.end();
+            currentEvent = null;
+        }
+    }
+
+    public void incrementNotification(){
+        if(currentEvent != null){
+            currentEvent.addNotification();
         }
     }
 }

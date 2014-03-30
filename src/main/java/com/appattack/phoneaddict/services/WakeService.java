@@ -6,7 +6,7 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.appattack.phoneaddict.receivers.ScreenEventReceiver;
+import com.appattack.phoneaddict.receivers.EventReceiver;
 import com.appattack.phoneaddict.tracker.WakeTracker;
 import com.google.inject.Inject;
 
@@ -21,7 +21,8 @@ public class WakeService extends RoboService {
     --------------------------*/
 
     @Inject WakeTracker tracker;
-    @Inject ScreenEventReceiver screenEventReceiver;
+    @Inject
+    EventReceiver eventReceiver;
 
     private final IBinder wakeBinder = new WakeServiceBinder();
 
@@ -33,8 +34,8 @@ public class WakeService extends RoboService {
     public void onCreate(){
         super.onCreate();
 
-        IntentFilter filter = ScreenEventReceiver.getIntentFilter();
-        registerReceiver(screenEventReceiver, filter);
+        IntentFilter filter = EventReceiver.getIntentFilter();
+        registerReceiver(eventReceiver, filter);
 
         Log.v("PhoneAddict", "Service Started!");
     }
@@ -42,7 +43,7 @@ public class WakeService extends RoboService {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        unregisterReceiver(screenEventReceiver);
+        unregisterReceiver(eventReceiver);
         Log.v("PhoneAddict", "Service Destroyed!");
     }
 

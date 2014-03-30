@@ -42,6 +42,7 @@ public class MainActivity extends RoboActivity implements View.OnClickListener {
     final String TOTAL_BRIEF_EVENTS = "Total Brief Events (< 5s)";
     final String AVERAGE_WAKE_LENGTH = "Average Wake Length";
     final String TOTAL_WAKE_LENGTH = "Total Wake Length";
+    final String TOTAL_NOTIFICATIONS = "Total Notifications Dismissed";
 
     boolean boundToService = false;
     WakeService wakeService;
@@ -84,6 +85,7 @@ public class MainActivity extends RoboActivity implements View.OnClickListener {
         wakeStats.addStat(TOTAL_BRIEF_EVENTS, "<No Data>");
         wakeStats.addStat(TOTAL_WAKE_LENGTH, "<No Data>");
         wakeStats.addStat(AVERAGE_WAKE_LENGTH, "<No Data>");
+        wakeStats.addStat(TOTAL_NOTIFICATIONS, "<No Data");
     }
 
     protected void onStart(){
@@ -115,6 +117,7 @@ public class MainActivity extends RoboActivity implements View.OnClickListener {
         wakeStats.updateStat(TOTAL_BRIEF_EVENTS, Integer.toString(tracker.getBriefEventsCount()));
         wakeStats.updateStat(TOTAL_WAKE_LENGTH, totalLength);
         wakeStats.updateStat(AVERAGE_WAKE_LENGTH, Float.toString(tracker.getAverageDurationMs() / 1000) + "s");
+        wakeStats.updateStat(TOTAL_NOTIFICATIONS, Integer.toString(tracker.getTotalNotificationCount()) + " alerts");
     }
 
     /*--------------------------
@@ -131,16 +134,16 @@ public class MainActivity extends RoboActivity implements View.OnClickListener {
     }
 
     private void toggleService(){
-        Intent serviceIntent = new Intent(this, WakeService.class);
+        Intent wakeServiceIntent = new Intent(this, WakeService.class);
         boolean isOn = serviceToggleBtn.isChecked();
 
         if(isOn){
-            startService(serviceIntent);
-            bindService(serviceIntent, mConnection, Context.BIND_WAIVE_PRIORITY);
+            startService(wakeServiceIntent);
+            bindService(wakeServiceIntent, mConnection, Context.BIND_WAIVE_PRIORITY);
         }
         else{
             unbindService(mConnection);
-            stopService(serviceIntent);
+            stopService(wakeServiceIntent);
         }
     }
 }

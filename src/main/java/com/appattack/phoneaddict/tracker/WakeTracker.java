@@ -14,6 +14,7 @@ public class WakeTracker {
     --------------------------*/
 
     List<WakeEvent> wakeEvents = new ArrayList<WakeEvent>();
+    WakeEvent currentEvent;
     private int briefEvents=0;
 
     /*--------------------------
@@ -24,12 +25,18 @@ public class WakeTracker {
         if(event.eventDuration/1000 < 5){
             briefEvents++;
         }
+
+        currentEvent = event;
         wakeEvents.add(event);
     }
 
     /*--------------------------
         EVENT ACCESSORS
     --------------------------*/
+
+    public WakeEvent getCurrentEvent(){
+        return currentEvent;
+    }
 
     public WakeEvent[] getEvents(){
         WakeEvent[] eventsArray = new WakeEvent[wakeEvents.size()];
@@ -48,13 +55,17 @@ public class WakeTracker {
         NOTIFICATION ACCESSORS
     --------------------------*/
 
+    public int getTotalNotificationCount(){
+        int totalNotifications = 0;
+        for(WakeEvent event : wakeEvents){
+            totalNotifications += event.getNotificationCount();
+        }
+        return totalNotifications;
+    }
+
     public int getAverageNotificationCount(){
         if(wakeEvents.size() > 0){
-            int totalNotifications = 0;
-            for(WakeEvent event : wakeEvents){
-                totalNotifications += event.getNotificationCount();
-            }
-
+            int totalNotifications = getTotalNotificationCount();
             return Math.round(totalNotifications / wakeEvents.size());
         } else {
             return 0;
